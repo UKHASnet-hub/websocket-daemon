@@ -1,0 +1,32 @@
+{
+  "name": "websocket-daemon",
+  "version": "0.1.0",
+  "description": "Websocket Server Daemon for ukhas.net",
+  "contributors": [
+    {
+      "name": "Phil Crump",
+      "email": "phildcrump@gmail.com"
+    }
+  ],
+  "scripts": {
+    "start": "node ./websocket-daemon.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:UKHASnet-hub/websocket-daemon.git"
+  },
+  "author": "UKHASnet",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/UKHASnet-hub/websocket-daemon/issues"
+  },
+  "homepage": "https://github.com/UKHASnet-hub/websocket-daemon",
+  "dependencies": {
+    "express": "^4.2.0",
+    "pg": "^3.1.0",
+    "socket.io": "^0.9.16"
+  },
+  "engines": {
+    "node": ">=0.10"
+  }
+}
