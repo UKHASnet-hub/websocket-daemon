@@ -22,7 +22,6 @@ io.set('transports', [
 
 // Websocket connection used for the logtail web page
 var logtailRoom = io.of('/logtail').on('connection', function (socket) {
-    var startTime = new Date();
     pg.connect(dbConfig, function(err, client, done) {
         if(err) {
             res.send('Database Connection Error')
@@ -37,7 +36,6 @@ var logtailRoom = io.of('/logtail').on('connection', function (socket) {
                 return
             }
             socket.emit("logtail_l200", JSON.stringify(result.rows));
-            console.log("WS: logtail_l200 served in",new Date() - startTime,"ms")
         });
     });
 });
