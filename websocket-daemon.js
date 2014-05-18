@@ -24,14 +24,14 @@ io.set('transports', [
 var logtailRoom = io.of('/logtail').on('connection', function (socket) {
     pg.connect(dbConfig, function(err, client, done) {
         if(err) {
-            res.send('Database Connection Error')
+            res.send(500,'Database Connection Error')
             console.log('DB Connection Error: ', err)
             return
         }
         client.query('SELECT upload.id AS i,upload.nodeid as ni,nodes.name as nn,upload.time as t,upload.packet as p,upload.state as s,upload.rssi as r FROM ukhasnet.upload INNER JOIN ukhasnet.nodes ON nodes.id=upload.nodeid ORDER BY upload.time DESC LIMIT 200;', function(err, result) {
             done()
             if(err) {
-                res.send('Database Query Error')
+                res.send(500,'Database Query Error')
                 console.log('DB Query Error: ', err)
                 return
             }
