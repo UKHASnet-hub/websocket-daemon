@@ -46,16 +46,15 @@ pg.connect(dbConfig, function(err, client) {
         console.log('DB Connection Error: ',err);
     }
     client.on('notification', function(msg) {
-        logtailRoom.emit("upload_row",msg.payload)
+        switch(msg.channel) {
+            case "upload_row":
+                logtailRoom.emit("upload_row",msg.payload)
+                break;
+            case "upload_parse":
+                logtailRoom.emit("upload_parse",msg.payload)
+                break;
+        }
     });
-    var query = client.query("LISTEN upload_row");
-});
-pg.connect(dbConfig, function(err, client) {
-    if(err) {
-        console.log('DB Connection Error: ',err);
-    }
-    client.on('notification', function(msg) {
-        logtailRoom.emit("upload_parse",msg.payload)
-    });
-    var query = client.query("LISTEN upload_parse");
+    client.query("LISTEN upload_row");
+    client.query("LISTEN upload_parse");
 });
