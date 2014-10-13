@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/UKHASnet-hub/websocket-daemon",
   "dependencies": {
-    "express": "^4.3.1",
-    "pg": "^3.2.0",
-    "socket.io": "^0.9.17"
+    "express": "^4.9.7",
+    "pg": "^3.5.0",
+    "socket.io": "^1.1.0"
   },
   "engines": {
     "node": ">=0.10"
