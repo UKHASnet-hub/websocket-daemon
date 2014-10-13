@@ -10,18 +10,10 @@ var dbConfig = require('./config.json')
 server.listen(3000)
 console.log('ukhas.net websocket v0.3 running...')
 
-// /socket.io
-io.disable('browser client'); // Don't serve js file (www/static/ does this)
-io.set('log level', 1); // reduce logging
-io.set('transports', [
-    'websocket'
-  , 'htmlfile'
-  , 'xhr-polling'
-  , 'jsonp-polling'
-]);
+var logtail_namespace = io.of('/logtail');
 
 // Websocket connection used for the logtail web page
-var logtailRoom = io.of('/logtail').on('connection', function (socket) {
+logtail_namespace.on('connection', function (socket) {
     pg.connect(dbConfig, function(err, client, done) {
         if(err) {
             console.log('DB Connection Error: ', err)
@@ -46,10 +38,10 @@ pg.connect(dbConfig, function(err, client) {
     client.on('notification', function(msg) {
         switch(msg.channel) {
             case "upload_row":
-                logtailRoom.emit("upload_row",msg.payload)
+                logtail_namespace.emit("upload_row",msg.payload)
                 break;
             case "upload_parse":
-                logtailRoom.emit("upload_parse",msg.payload)
+                logtail_namespace.emit("upload_parse",msg.payload)
                 break;
         }
     });
